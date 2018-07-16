@@ -5,15 +5,12 @@
  */
 package src;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
+
+
 
 /**
  *
@@ -21,25 +18,22 @@ import org.apache.pdfbox.text.PDFTextStripper;
  */
 public class Estrazione {
     public static void main(String[] args) throws IOException {
-        PDDocument doc = null;
-        File f = new File("out.pdf");
-        FileWriter w = new FileWriter("prova.txt");
-        BufferedWriter b = new BufferedWriter(w);
-        b.write("ciaoerr\n");
-        b.flush();
-        String x = null;
-        try{
-            doc = PDDocument.load(f);
-            PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(0);
-            stripper.setEndPage(0);
-            x = stripper.getText(doc);
-        } catch (IOException e) {   
-            e.printStackTrace();    
+      //Caricamento del file esistente
+      PDDocument document;
+      File file = new File("new.pdf");
+      try{
+        document = PDDocument.load(file);
+        //instanziare lo stripper per estrapolare il testo
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        //prendere il testo dal pdf e passarlo in una stringa
+        String text = pdfStripper.getText(document);
+        //Stampa a video
+        System.out.println(text);
+        //Chiusura documento
+        document.close();
+        }catch(IOException e){
+          
         }
-        System.out.println("letto:"+ x);
-        
-        
     }
     
 }
